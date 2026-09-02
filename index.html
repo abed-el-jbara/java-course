@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دليل دراسة Java | فصول المساق</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .home-intro {
+    text-align: center;
+    margin: 0 0 24px;
+  }
+
+  .chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .chapter-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .chapter-card .chapter-title {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .chapter-body {
+    padding: 18px;
+  }
+
+  .chapter-body p {
+    margin-top: 0;
+  }
+
+  .chapter-link,
+  .coming-soon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .chapter-link {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .chapter-link:hover,
+  .chapter-link:focus-visible {
+    filter: brightness(1.08);
+    outline: 3px solid rgba(75,54,184,.2);
+  }
+
+  .coming-soon {
+    background: var(--soft);
+    color: var(--muted);
+    cursor: default;
+  }
+
+  .chapter-topic {
+    color: var(--muted);
+  }
+
+  .site-note {
+    margin-top: 28px;
+  }
+
+  @media (max-width: 760px) {
+    .chapters-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <button id="menuBtn" class="icon-btn" aria-label="فتح قائمة المحتويات">☰</button>
+  <div class="brand">Java · دليل الدراسة</div>
+  <button id="themeBtn" class="icon-btn" aria-label="تبديل المظهر">◐</button>
+</header>
+
+<aside id="sidebar" class="sidebar" aria-label="قائمة المحتويات">
+  <div class="sidebar-inner">
+    <h2>الفصول</h2>
+    <input id="searchBox" type="search" placeholder="ابحث عن فصل..." aria-label="بحث">
+    <nav id="toc"></nav>
+  </div>
+</aside>
+
+<main id="content" class="content">
+  <section class="hero">
+    <h1 class="hero-title">دليل دراسة Java</h1>
+    <div class="hero-subtitle">מבוא למדעי המחשב ושפת Java א</div>
+    <div class="hero-tagline">اختر الفصل الذي تريد دراسته</div>
+  </section>
+
+  <div class="home-intro note">
+    تم تنظيم كل فصل ليشمل الشرح، الأمثلة، التمارين، قواعد الامتحان، المراجعة والأسئلة النهائية.
+  </div>
+
+  <section class="chapters-grid">
+    <article class="chapter-card">
+      <h2 id="sec-1" class="chapter-title">الفصل الأول</h2>
+      <div class="chapter-body">
+        <p class="chapter-topic">سيتم إضافة مادة الفصل قريبًا.</p>
+        <span class="coming-soon">قريبًا</span>
+      </div>
+    </article>
+
+    <article class="chapter-card">
+      <h2 id="sec-2" class="chapter-title">الفصل الثاني</h2>
+      <div class="chapter-body">
+        <p class="chapter-topic">سيتم إضافة مادة الفصل قريبًا.</p>
+        <span class="coming-soon">قريبًا</span>
+      </div>
+    </article>
+
+    <article class="chapter-card">
+      <h2 id="sec-3" class="chapter-title">الفصل الثالث</h2>
+      <div class="chapter-body">
+        <p class="chapter-topic">العمليات الساكنة، كتابة العمليات، وعمليات الكائنات.</p>
+        <a class="chapter-link" href="chapter3.html">فتح الفصل الثالث</a>
+      </div>
+    </article>
+
+    <article class="chapter-card">
+      <h2 id="sec-4" class="chapter-title">الفصل الرابع</h2>
+      <div class="chapter-body">
+        <p class="chapter-topic">الفئات، الكائنات، العلاقات بين الكائنات، والفئات المركبة.</p>
+        <a class="chapter-link" href="chapter4.html">فتح الفصل الرابع</a>
+      </div>
+    </article>
+
+    <article class="chapter-card">
+      <h2 id="sec-5" class="chapter-title">الفصل الخامس</h2>
+      <div class="chapter-body">
+        <p class="chapter-topic">الحلقات، الرموز والسلاسل النصية، والحلقات المتداخلة.</p>
+        <a class="chapter-link" href="chapter5.html">فتح الفصل الخامس</a>
+      </div>
+    </article>
+
+    <article class="chapter-card">
+      <h2 id="sec-6" class="chapter-title">الفصل السادس</h2>
+      <div class="chapter-body">
+        <p class="chapter-topic">المصفوفات أحادية البعد، مصفوفات الكائنات، والمصفوفات ثنائية الأبعاد.</p>
+        <a class="chapter-link" href="chapter6.html">فتح الفصل السادس</a>
+      </div>
+    </article>
+  </section>
+
+  <div class="exam-tip site-note">
+    <strong>للطالب:</strong> اختر الفصل من الصفحة الرئيسية، ويمكنك العودة إليها في أي وقت من خلال زر الرجوع في المتصفح.
+  </div>
+</main>
+
+<button id="topBtn" class="top-btn" aria-label="العودة إلى الأعلى">↑</button>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دليل الدراسة الكامل - Java الفصل الخامس</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <button id="menuBtn" class="icon-btn" aria-label="فتح قائمة المحتويات">☰</button>
+  <div class="brand">Java · الفصل الخامس</div>
+  <button id="themeBtn" class="icon-btn" aria-label="تبديل المظهر">◐</button>
+</header>
+<aside id="sidebar" class="sidebar" aria-label="قائمة المحتويات">
+  <div class="sidebar-inner">
+    <h2>المحتويات</h2>
+    <input id="searchBox" type="search" placeholder="ابحث في الفصل..." aria-label="بحث">
+    <nav id="toc"></nav>
+  </div>
+</aside>
+<main id="content" class="content">
+  <section class="hero">
+    <h1 class="hero-title">دليل الدراسة الكامل</h1>
+    <div class="hero-subtitle"><span dir="ltr">Java</span> - الفصل الخامس</div>
+    <div class="hero-tagline">الحلقات، الرموز والسلاسل النصية، والحلقات المتداخلة</div>
+  </section>
+  <div class="note"><strong>ملاحظة:</strong> هذا الدليل مبني على مواد الفصل 5.1 حتى 5.5. الهدف أن يدرس الطالب منه مباشرة: فهم الفكرة، قراءة الكود، تتبّع التنفيذ، اكتشاف الأخطاء، ثم حل أسئلة مشابهة للامتحان.</div><h2 id="sec-1" class="chapter-title">قاموس المصطلحات المعتمد في هذا الفصل</h2><div class="table-wrap"><table class="study-table"><tr><td>العربية المعتمدة</td><td><code dir="ltr">English</code> / <code dir="ltr">Java</code></td></tr><tr><td>حلقة</td><td><code dir="ltr">Loop</code></td></tr><tr><td>حلقة <code dir="ltr">while</code></td><td><code dir="ltr">while</code> <code dir="ltr">Loop</code></td></tr><tr><td>حلقة <code dir="ltr">for</code></td><td><code dir="ltr">for</code> <code dir="ltr">Loop</code></td></tr><tr><td>شرط الحلقة</td><td><code dir="ltr">Loop</code> <code dir="ltr">Condition</code></td></tr><tr><td>جسم الحلقة</td><td><code dir="ltr">Loop</code> <code dir="ltr">Body</code></td></tr><tr><td>تكرار واحد</td><td><code dir="ltr">Iteration</code></td></tr><tr><td>عداد الحلقة / مؤشر / فهرس</td><td><code dir="ltr">Loop</code> <code dir="ltr">Counter</code> / <code dir="ltr">Index</code></td></tr><tr><td>تهيئة</td><td><code dir="ltr">Initialization</code></td></tr><tr><td>تحديث / تقدّم</td><td><code dir="ltr">Update</code></td></tr><tr><td>متغيّر تجميع</td><td><code dir="ltr">Accumulator</code></td></tr><tr><td>حلقة لا نهائية</td><td><code dir="ltr">Infinite</code> <code dir="ltr">Loop</code></td></tr><tr><td>نطاق التعريف / نطاق المتغيّر</td><td><code dir="ltr">Scope</code></td></tr><tr><td>رمز</td><td><code dir="ltr">char</code> / <code dir="ltr">Character</code></td></tr><tr><td>سلسلة نصية</td><td><code dir="ltr">String</code></td></tr><tr><td>تحويل نوع</td><td><code dir="ltr">Casting</code></td></tr><tr><td>جدول <code dir="ltr">ASCII</code></td><td><code dir="ltr">ASCII</code> <code dir="ltr">Table</code></td></tr><tr><td>حلقة متداخلة</td><td><code dir="ltr">Nested</code> <code dir="ltr">Loop</code></td></tr><tr><td>حلقة خارجية</td><td><code dir="ltr">Outer</code> <code dir="ltr">Loop</code></td></tr><tr><td>حلقة داخلية</td><td><code dir="ltr">Inner</code> <code dir="ltr">Loop</code></td></tr><tr><td>عدد أولي</td><td><code dir="ltr">Prime</code> <code dir="ltr">Number</code></td></tr><tr><td>قاسم</td><td><code dir="ltr">Divisor</code></td></tr><tr><td>عدد كامل / تام</td><td><code dir="ltr">Perfect</code> <code dir="ltr">Number</code></td></tr><tr><td>سلسلة متناظرة</td><td><code dir="ltr">Palindrome</code></td></tr><tr><td>تشفير</td><td><code dir="ltr">Encryption</code></td></tr><tr><td>فك التشفير</td><td><code dir="ltr">Decryption</code></td></tr><tr><td>شفرة قيصر</td><td><code dir="ltr">Caesar</code> <code dir="ltr">Cipher</code></td></tr></table></div><div class="exam-tip"><strong>قاعدة للامتحان:</strong> قاعدة لغوية ثابتة: نكتب المصطلح العربي أولًا، ثم المصطلح الإنجليزي بين قوسين عند ظهوره للمرة الأولى أو عندما يكون مهمًا للامتحان.</div><h2 id="sec-2" class="chapter-title">5.1 - حلقة <code dir="ltr">while</code> (كلما / طالما أن الشرط صحيح)</h2><h3 class="section-title">لماذا نحتاج إلى حلقة؟</h3><p>الحلقة (<code dir="ltr">Loop</code>) هي طريقة لتنفيذ مجموعة من الأوامر أكثر من مرة. الأوامر التي تتكرر تسمّى جسم الحلقة (<code dir="ltr">Loop</code> <code dir="ltr">Body</code>)، والاختبار الذي يقرر هل نكرر مرة أخرى يسمى شرط الحلقة (<code dir="ltr">Loop</code> <code dir="ltr">Condition</code>).</p><div class="bullet">نستخدم <code dir="ltr">while</code> عندما لا نعرف مسبقًا عدد مرات التكرار، مثل لعبة التخمين التي تستمر حتى ينجح المستخدم.</div><div class="bullet">كل تنفيذ كامل لجسم الحلقة يسمى تكرارًا واحدًا (<code dir="ltr">Iteration</code>).</div><h3 class="section-title">مثال اللعبة: من ثلاث محاولات إلى عدد محاولات غير معروف</h3><p>في المثال الأول كانت عملية <code dir="ltr">check(secret)</code> تُستدعى عدة مرات يدويًا. الفكرة الأفضل هي: نفّذ التخمين، وإذا فشل، أعد التخمين طالما أن النتيجة <code dir="ltr">false</code>.</p><pre class="code-block" dir="ltr"><code>boolean res = check(secret);
+while (res == false) {
+    res = check(secret);
+}
+System.out.println(&quot;Game over. Number is: &quot; + secret);</code></pre><div class="exam-tip"><strong>قاعدة للامتحان:</strong> في <code dir="ltr">while</code> يجب أن تسأل نفسك دائمًا: ما الذي قد يغيّر قيمة شرط الحلقة؟ إذا لم يتغيّر شيء مرتبط بالشرط فقد نحصل على حلقة لا نهائية.</div><h3 class="section-title">البنية العامة لحلقة <code dir="ltr">while</code></h3><pre class="code-block" dir="ltr"><code>while (booleanExpression) {
+    // commands
+}</code></pre><div class="bullet">قبل كل تكرار يتم فحص الشرط.</div><div class="bullet">إذا كان الشرط <code dir="ltr">true</code> ينفذ جسم الحلقة.</div><div class="bullet">إذا كان الشرط <code dir="ltr">false</code> تنتهي الحلقة ويستمر البرنامج من أول أمر بعدها.</div><div class="bullet">إذا كان في الجسم أمر واحد فقط يمكن حذف الأقواس المعقوفة، لكن في هذا الدليل نفضّل إبقاءها لتقليل الأخطاء.</div><h3 class="section-title">نمط مهم: قراءة حتى قيمة إنهاء</h3><p>عندما لا نعرف عدد القيم التي سيدخلها المستخدم، يمكن اختيار قيمة خاصة لإنهاء الإدخال. في أمثلة الفصل استُخدمت -1.</p><pre class="code-block" dir="ltr"><code>Scanner scan = new Scanner(System.in);
+int sum = 0;
+int num;
+System.out.println(&quot;Enter Expenses, -1 to finish&quot;);
+num = scan.nextInt();
+while (num != -1) {
+    sum += num;
+    num = scan.nextInt();
+}
+System.out.println(&quot;Sum is: &quot; + sum);</code></pre><div class="exam-tip"><strong>قاعدة للامتحان:</strong> لماذا نقرأ أول قيمة قبل الحلقة؟ لأن الشرط يحتاج قيمة يفحصها قبل الدخول إلى أول تكرار. ثم نقرأ قيمة جديدة في نهاية كل تكرار.</div><h3 class="section-title">حساب متوسط عدد غير معروف من العلامات</h3><p>لحساب المتوسط نحتاج شيئين: مجموع العلامات وعدد العلامات. بعد انتهاء الإدخال نحسب المجموع ÷ العدد.</p><pre class="code-block" dir="ltr"><code>Scanner scan = new Scanner(System.in);
+double sum = 0;
+int noGrades = 0;
+int num;
+System.out.println(&quot;Enter Grades, -1 to finish&quot;);
+num = scan.nextInt();
+while (num != -1) {
+    sum += num;
+    noGrades++;
+    num = scan.nextInt();
+}
+if (noGrades == 0) {
+    System.out.println(&quot;No Grades&quot;);
+} else {
+    System.out.println(&quot;Average = &quot; + sum / noGrades);
+}</code></pre><div class="bullet">يجب معالجة الحالة التي لم يُدخل فيها المستخدم أي علامة، وإلا نحاول القسمة على 0.</div><div class="bullet">يجب أن يكون الحساب عشريًا (<code dir="ltr">double</code>) حتى لا نخسر الجزء العشري من المتوسط.</div><h3 class="section-title">تفكيك عدد: استخراج الأرقام واحدًا واحدًا</h3><p>لعدد صحيح موجب، <code dir="ltr">num</code> % 10 يعطينا رقم الآحاد، و <code dir="ltr">num</code> / 10 يحذف رقم الآحاد.</p><pre class="code-block" dir="ltr"><code>int sum = 0;
+while (num != 0) {
+    sum += num % 10;
+    num = num / 10;
+}</code></pre><p>مثال للعدد 3852: نضيف 2 ثم 5 ثم 8 ثم 3، وفي النهاية يصبح <code dir="ltr">num</code> مساويًا 0 ويكون المجموع 18.</p><div class="exam-tip"><strong>قاعدة للامتحان:</strong> ترتيب الأوامر مهم. إذا حذفنا رقم الآحاد قبل أن نستخدمه فقد نفقده. لذلك غالبًا: استخرج/استخدم الرقم أولًا، ثم احذفه.</div><h3 class="section-title">فحص هل كل أرقام العدد زوجية</h3><pre class="code-block" dir="ltr"><code>public static boolean isEvenDigits(int num) {
+    while (num != 0) {
+        int digit = num % 10;
+        if (digit % 2 != 0) {
+            return false;
+        }
+        num = num / 10;
+    }
+    return true;
+}</code></pre><p>عند العثور على رقم فردي نعرف فورًا أن الجواب <code dir="ltr">false</code>، لذلك لا حاجة لمتابعة فحص بقية الأرقام.</p><h3 class="section-title">ثلاث طرق لإيقاف العمل مبكرًا</h3><div class="bullet"><code dir="ltr">return</code>: ينهي العملية (<code dir="ltr">Method</code>) كلها ويعيد قيمة إن كانت العملية غير <code dir="ltr">void</code>.</div><div class="bullet"><code dir="ltr">break</code>: ينهي الحلقة الحالية فقط، ثم يستمر التنفيذ بعد الحلقة.</div><div class="bullet">تغيير شرط الحلقة: يمكن أن نجعل الشرط يحتوي أكثر من جزء، مثل <code dir="ltr">num</code> != 0 &amp;&amp; <code dir="ltr">res</code>.</div><pre class="code-block" dir="ltr"><code>boolean res = true;
+while (num != 0 &amp;&amp; res) {
+    int digit = num % 10;
+    if (digit % 2 != 0) {
+        res = false;
+    }
+    num = num / 10;
+}
+return res;</code></pre><h3 class="section-title">الأمر <code dir="ltr">break</code></h3><pre class="code-block" dir="ltr"><code>while (num != 0) {
+    int digit = num % 10;
+    if (digit % 2 != 0) {
+        res = false;
+        break;
+    }
+    num = num / 10;
+}</code></pre><p>عند تنفيذ <code dir="ltr">break</code> نخرج من الحلقة مباشرة، ثم ننتقل إلى أول أمر بعد الحلقة.</p><h3 class="section-title">الأمر <code dir="ltr">continue</code></h3><p><code dir="ltr">continue</code> ينهي التكرار الحالي فقط. في <code dir="ltr">while</code> ينتقل التنفيذ إلى فحص شرط الحلقة من جديد.</p><pre class="code-block" dir="ltr"><code>public static void printEven(int num) {
+    while (num != 0) {
+        int digit = num % 10;
+        num = num / 10;
+        if (digit % 2 != 0) {
+            continue;
+        }
+        System.out.print(digit);
+    }
+}</code></pre><div class="exam-tip"><strong>قاعدة للامتحان:</strong> عند استخدام <code dir="ltr">continue</code> في <code dir="ltr">while</code> تأكد أن التغييرات التي تمنع الحلقة من أن تصبح لا نهائية حدثت قبل <code dir="ltr">continue</code>. في المثال نحذف رقم الآحاد قبل <code dir="ltr">continue</code>.</div><h3 class="section-title">الحلقة اللانهائية (<code dir="ltr">Infinite</code> <code dir="ltr">Loop</code>)</h3><p>الحلقة اللانهائية هي حلقة يبقى شرطها <code dir="ltr">true</code> ولا يحدث داخلها ما يجعل الشرط <code dir="ltr">false</code> أو يخرج منها بأمر مثل <code dir="ltr">break</code> أو <code dir="ltr">return</code>.</p><pre class="code-block" dir="ltr"><code>int i = 0;
+while (i != 10) {
+    i = i + 3;
+}</code></pre><p>هذه الحلقة لا تصل إلى 10: القيم تكون 0، 3، 6، 9، 12... ولذلك تستمر بلا نهاية.</p><pre class="code-block" dir="ltr"><code>int i = 20;
+while (i &lt; 10) {
+    i = i + 2;
+}</code></pre><p>هذه ليست حلقة لا نهائية؛ الشرط <code dir="ltr">false</code> منذ البداية، لذلك جسم الحلقة لا ينفذ أصلًا.</p><h3 class="section-title">تمرين فحص كود: لماذا قد لا تتوقف الحلقة؟</h3><pre class="code-block" dir="ltr"><code>int num = scan.nextInt();
+int sum = 0;
+while (sum &lt; 20) {
+    sum = num;
+}
+System.out.println(&quot;Sum is: &quot; + sum);</code></pre><p>إذا كانت قيمة <code dir="ltr">num</code> أصغر من 20، يصبح <code dir="ltr">sum</code> مساويًا لها في كل تكرار ويبقى أصغر من 20، لذلك لا تتوقف الحلقة. كذلك لا توجد قراءة جديدة داخل الحلقة، وكتابة <code dir="ltr">sum</code> = <code dir="ltr">num</code> لا تجمع الأعداد.</p><pre class="code-block" dir="ltr"><code>while (num != 0) {
+    num = num % 2;
+}</code></pre><p>هذه الحلقة قد تصبح لا نهائية عندما يصبح <code dir="ltr">num</code> مساويًا 1، لأن 1 % 2 يساوي 1 في كل مرة. أما إذا أصبحت القيمة 0 فتنتهي الحلقة.</p><h3 class="section-title">نطاق تعريف المتغيّرات (<code dir="ltr">Scope</code>)</h3><pre class="code-block" dir="ltr"><code>int i = 0;
+while (i &lt; 10) {
+    int num = i;
+    i = i + 2;
+}
+// num is not known here</code></pre><p>المتغيّر الذي نعرّفه داخل جسم الحلقة معروف فقط داخل هذا الجسم. لا يمكن استخدام <code dir="ltr">num</code> بعد القوس الذي يغلق الحلقة.</p><h3 class="section-title">تمرين الفصل: العدد الأولي</h3><p>العدد الأولي (<code dir="ltr">Prime</code> <code dir="ltr">Number</code>) هو عدد صحيح أكبر من 1 لا يقبل القسمة إلا على 1 وعلى نفسه. المطلوب في المادة كتابة العملية:</p><pre class="code-block" dir="ltr"><code>public static boolean isPrime(int num)</code></pre><p>فكرة الحل: جرّب قواسم ممكنة ابتداءً من 2، وإذا وجدت قاسمًا يعيد باقي القسمة 0 فالعدد غير أولي.</p><pre class="code-block" dir="ltr"><code>public static boolean isPrime(int num) {
+    if (num &lt;= 1) {
+        return false;
+    }
+    int i = 2;
+    while (i &lt; num) {
+        if (num % i == 0) {
+            return false;
+        }
+        i++;
+    }
+    return true;
+}</code></pre><h2 id="sec-3" class="chapter-title">5.2 - حلقة <code dir="ltr">for</code></h2><h3 class="section-title">متى نفضّل <code dir="ltr">for</code>؟</h3><p>عندما يكون عدد التكرارات معروفًا مسبقًا، تكون حلقة <code dir="ltr">for</code> غالبًا أوضح. مثال: قراءة 20 علامة أو طباعة الأعداد من 0 إلى 9.</p><pre class="code-block" dir="ltr"><code>int sum = 0;
+for (int i = 0; i &lt; 20; i++) {
+    System.out.println(&quot;Enter grade&quot;);
+    int num = scan.nextInt();
+    sum += num;
+}
+System.out.println(&quot;Avg is: &quot; + sum / 20.0);</code></pre><h3 class="section-title">بنية حلقة <code dir="ltr">for</code></h3><pre class="code-block" dir="ltr"><code>for (initialization; condition; update) {
+    // body commands
+}</code></pre><div class="bullet">التهيئة (<code dir="ltr">Initialization</code>): تنفذ مرة واحدة فقط قبل أول فحص للشرط.</div><div class="bullet">الشرط (<code dir="ltr">Condition</code>): يفحص قبل كل تكرار.</div><div class="bullet">التحديث / التقدّم (<code dir="ltr">Update</code>): ينفذ بعد نهاية كل تكرار، ثم يعود البرنامج لفحص الشرط.</div><div class="bullet">مثال شائع: <code dir="ltr">for</code> (<code dir="ltr">int</code> <code dir="ltr">i</code> = 0; <code dir="ltr">i</code> &lt; 20; <code dir="ltr">i</code>++).</div><h3 class="section-title">ترتيب التنفيذ بدقة</h3><div class="table-wrap"><table class="study-table"><tr><td>الخطوة</td><td>ما يحدث</td></tr><tr><td>1</td><td>التهيئة</td></tr><tr><td>2</td><td>فحص الشرط</td></tr><tr><td>3</td><td>إذا <code dir="ltr">true</code>: تنفيذ جسم الحلقة</td></tr><tr><td>4</td><td>تنفيذ التحديث</td></tr><tr><td>5</td><td>العودة إلى فحص الشرط</td></tr><tr><td>6</td><td>إذا <code dir="ltr">false</code>: الخروج من الحلقة</td></tr></table></div><h3 class="section-title">تتبّع مثال لثلاث علامات</h3><pre class="code-block" dir="ltr"><code>int sum = 0;
+for (int i = 0; i &lt; 3; i++) {
+    int num = scan.nextInt();
+    sum += num;
+}
+System.out.println(sum / 3.0);</code></pre><p>إذا كانت القيم 90، 80، 100 يصبح المجموع 270 والمتوسط 90.0.</p><div class="note"><strong>ملاحظة:</strong> ملاحظة على الشرائح: في مثال تتبّع ثلاث علامات ظهر في أحد مقاطع الكود القسمة على 20.0، لكن المثال نفسه والنتيجة 90.0 يوضحان أن المقصود هنا 3.0. في هذا الدليل استخدمنا الصيغة الصحيحة للمثال.</div><h3 class="section-title">أمثلة على التحديث</h3><pre class="code-block" dir="ltr"><code>for (int i = 0; i &lt;= 9; i++) {
+    if (i % 2 == 0) {
+        System.out.print(i + &quot; &quot;);
+    }
+}
+// 0 2 4 6 8</code></pre><p>يمكن تقليل عدد التكرارات إذا كان المطلوب فقط الأعداد الزوجية، وذلك بجعل عداد الحلقة يقفز بمقدار 2:</p><pre class="code-block" dir="ltr"><code>for (int i = 0; i &lt;= 9; i = i + 2) {
+    System.out.print(i + &quot; &quot;);
+}
+// 0 2 4 6 8</code></pre><pre class="code-block" dir="ltr"><code>for (int i = 0; i &lt;= 12; i = i + 3) {
+    System.out.print(i + &quot; &quot;);
+}
+// 0 3 6 9 12</code></pre><pre class="code-block" dir="ltr"><code>for (int i = 9; i &gt;= 0; i--) {
+    System.out.print(i + &quot; &quot;);
+}
+// 9 8 7 6 5 4 3 2 1 0</code></pre><h3 class="section-title">عدد كامل / تام (<code dir="ltr">Perfect</code> <code dir="ltr">Number</code>)</h3><p>العدد الكامل هو عدد يساوي مجموع قواسمه الموجبة دون احتساب العدد نفسه. مثال: 6 قواسمه 1، 2، 3 ومجموعها 6.</p><pre class="code-block" dir="ltr"><code>public static boolean isPerfect(int num) {
+    int sum = 0;
+    for (int i = 1; i &lt; num; i++) {
+        if (num % i == 0) {
+            sum += i;
+        }
+    }
+    return sum == num;
+}</code></pre><h3 class="section-title">حقول فارغة في <code dir="ltr">for</code></h3><p>يمكن ترك أي حقل من حقول <code dir="ltr">for</code> فارغًا. عندما يكون حقل فارغًا تتخطى الحلقة هذه المرحلة.</p><pre class="code-block" dir="ltr"><code>for ( ; num != 0; ) {
+    sum += num % 10;
+    num = num / 10;
+}</code></pre><p>إذا تُرك الشرط فارغًا فالقيمة الافتراضية له <code dir="ltr">true</code>، ولذلك <code dir="ltr">for(;;)</code> حلقة لا نهائية ما لم نخرج منها مثلًا بـ <code dir="ltr">break</code> أو <code dir="ltr">return</code>.</p><pre class="code-block" dir="ltr"><code>for ( ; ; ) {
+    sum += num % 10;
+    num = num / 10;
+    if (num == 0) {
+        break;
+    }
+}</code></pre><h3 class="section-title"><code dir="ltr">break</code> و <code dir="ltr">continue</code> داخل <code dir="ltr">for</code></h3><p><code dir="ltr">break</code> في <code dir="ltr">for</code> مثل <code dir="ltr">while</code>: ينهي الحلقة الحالية. أما <code dir="ltr">continue</code> في <code dir="ltr">for</code> فينهي التكرار الحالي ثم ينتقل إلى مرحلة التحديث، وبعدها يُفحص الشرط.</p><pre class="code-block" dir="ltr"><code>public static void printSplit(int num) {
+    for (int i = 1; i &lt;= num; i++) {
+        if (num % i != 0) {
+            continue;
+        }
+        System.out.print(i + &quot; &quot;);
+    }
+}</code></pre><h3 class="section-title">نطاق متغيّرات <code dir="ltr">for</code></h3><pre class="code-block" dir="ltr"><code>for (int i = 0; i &lt; 10; i++) {
+    // i is known here
+}
+// i is not known here</code></pre><p>إذا عرّفنا المتغيّر في جزء التهيئة داخل <code dir="ltr">for</code> فهو لا يكون معروفًا بعد انتهاء الحلقة.</p><h3 class="section-title">أكثر من أمر في التهيئة أو التحديث</h3><p>يمكن كتابة أكثر من أمر في التهيئة أو في التحديث، ونفصل بينها بفاصلة.</p><pre class="code-block" dir="ltr"><code>for (int i = 1, num = 1; i &lt; n; i++, num = i * i) {
+    System.out.println(i + &quot;^2 = &quot; + num);
+}</code></pre><h3 class="section-title">التحويل بين <code dir="ltr">while</code> و <code dir="ltr">for</code></h3><p>الفكرة نفسها يمكن غالبًا كتابتها بأي من الحلقتين. المهم نقل التهيئة والشرط والتحديث إلى الأماكن الصحيحة.</p><pre class="code-block" dir="ltr"><code>// while
+int res = 1;
+while (y &gt; 0) {
+    res = res * x;
+    y--;
+}
+
+// equivalent for
+int res2 = 1;
+for ( ; y &gt; 0; y--) {
+    res2 = res2 * x;
+}</code></pre><h3 class="section-title">تمارين إضافية على التحويل بين <code dir="ltr">while</code> و <code dir="ltr">for</code></h3><p>في عملية <code dir="ltr">mod</code> نطرح <code dir="ltr">y</code> من <code dir="ltr">x</code> ما دام <code dir="ltr">x</code> أكبر من أو يساوي <code dir="ltr">y</code>. يمكن نقل التحديث إلى جزء <code dir="ltr">update</code> في <code dir="ltr">for</code>:</p><pre class="code-block" dir="ltr"><code>public static int mod(int x, int y) {
+    for ( ; x &gt;= y; x -= y) {
+        // no body command is needed
+    }
+    return x;
+}</code></pre><p>وفي عملية عكس أرقام عدد، يمكن تحويل <code dir="ltr">for</code> إلى <code dir="ltr">while</code> مع إبقاء حذف رقم الآحاد كتحديث داخل جسم الحلقة:</p><pre class="code-block" dir="ltr"><code>public static int rev(int num) {
+    int res = 0;
+    while (num &gt; 0) {
+        res = res * 10 + num % 10;
+        num = num / 10;
+    }
+    return res;
+}</code></pre><pre class="code-block" dir="ltr"><code>// factorial with for
+public static int factorial(int num) {
+    int res = 1;
+    for (int i = 1; i &lt;= num; i++) {
+        res = res * i;
+    }
+    return res;
+}</code></pre><div class="note"><strong>ملاحظة:</strong> ملاحظة على الشرائح: ظهر في مثال <code dir="ltr">factorial</code> الحرف <code dir="ltr">I</code> الكبير في شرط الحلقة. المتغيّر المعرّف هو <code dir="ltr">i</code> الصغير، لذلك الصيغة الصحيحة هي <code dir="ltr">i</code> &lt;= <code dir="ltr">num</code>.</div><h3 class="section-title">تمرين: طباعة جميع الأعداد الأولية حتى <code dir="ltr">max</code></h3><pre class="code-block" dir="ltr"><code>public static void printPrimes(int max) {
+    for (int i = 2; i &lt;= max; i++) {
+        if (isPrime(i)) {
+            System.out.print(i + &quot; &quot;);
+        }
+    }
+}</code></pre><p>هذا التمرين يربط بين حلقة <code dir="ltr">for</code> واستدعاء عملية أخرى: لكل عدد من 2 حتى <code dir="ltr">max</code> نستعمل <code dir="ltr">isPrime</code> لتحديد هل نطبعه.</p><h2 id="sec-4" class="chapter-title">5.3 - الحلقات، الرموز (<code dir="ltr">char</code>) والسلاسل النصية (<code dir="ltr">String</code>)</h2><h3 class="section-title">ما هو <code dir="ltr">char</code>؟</h3><p>الرمز (<code dir="ltr">char</code> / <code dir="ltr">Character</code>) هو قيمة تمثل رمزًا واحدًا: حرفًا، رقمًا مكتوبًا كرمز، علامة ترقيم، أو رمز تحكم. في <code dir="ltr">Java</code> نكتب <code dir="ltr">char</code> بين علامتي اقتباس مفردتين مثل <code dir="ltr">A</code> أو 7 عندما نعرضهما كرموز في الكود.</p><pre class="code-block" dir="ltr"><code>char newLine = &#x27;\n&#x27;;
+char tab = &#x27;\t&#x27;;
+char letter = &#x27;A&#x27;;
+char digit = &#x27;7&#x27;;</code></pre><div class="bullet">الرقم 7 من النوع <code dir="ltr">int</code> يختلف عن الرمز &#x27;7&#x27; من النوع <code dir="ltr">char</code>.</div><div class="bullet">كل <code dir="ltr">char</code> له قيمة رقمية في جدول ترميز. في هذا الفصل نستخدم جدول <code dir="ltr">ASCII</code>.</div><h3 class="section-title">جدول <code dir="ltr">ASCII</code> - القيم التي يجب فهمها</h3><div class="table-wrap"><table class="study-table"><tr><td>المجموعة</td><td>المجال في <code dir="ltr">ASCII</code></td></tr><tr><td>الأرقام 0..9</td><td>من 48 إلى 57</td></tr><tr><td>الحروف الإنجليزية الكبيرة <code dir="ltr">A</code>..<code dir="ltr">Z</code></td><td>من 65 إلى 90</td></tr><tr><td>الحروف الإنجليزية الصغيرة <code dir="ltr">a</code>..<code dir="ltr">z</code></td><td>من 97 إلى 122</td></tr></table></div><p>سبب أهمية الترتيب: الأحرف والأرقام متتالية، لذلك نستطيع المقارنة بينها وإجراء عمليات حسابية عليها.</p><pre class="code-block" dir="ltr"><code>&#x27;A&#x27; == 65
+&#x27;a&#x27; + 3   // reaches &#x27;d&#x27; conceptually
+&#x27;a&#x27; &lt; &#x27;e&#x27; // true</code></pre><h3 class="section-title">التحويل بين <code dir="ltr">char</code> و <code dir="ltr">int</code> (<code dir="ltr">Casting</code>)</h3><pre class="code-block" dir="ltr"><code>(char) 102   // &#x27;f&#x27;
+(int) &#x27;^&#x27;    // 94</code></pre><p>التحويل (<code dir="ltr">Casting</code>) يسمح بالانتقال بين القيمة الرقمية للرمز والرمز نفسه.</p><h3 class="section-title">تأكد من فهم قيم <code dir="ltr">ASCII</code></h3><p>من أمثلة الشرائح: عند زيادة الرمز <code dir="ltr">K</code> بمقدار واحد نحصل على <code dir="ltr">L</code>. والتحويل من القيمة 102 إلى <code dir="ltr">char</code> يعطي الرمز <code dir="ltr">f</code>، وتحويل الرمز ^ إلى <code dir="ltr">int</code> يعطي القيمة 94.</p><pre class="code-block" dir="ltr"><code>char ch = &#x27;K&#x27;;
+ch++;          // &#x27;L&#x27;
+(char)102      // &#x27;f&#x27;
+(int)&#x27;^&#x27;       // 94</code></pre><h3 class="section-title">التعرّف على مجموعات من الرموز</h3><pre class="code-block" dir="ltr"><code>// lowercase letter
+&#x27;a&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;z&#x27;
+
+// uppercase letter
+&#x27;A&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;Z&#x27;
+
+// digit character
+&#x27;0&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;9&#x27;</code></pre><pre class="code-block" dir="ltr"><code>public static boolean isSmallLetter(char ch) {
+    return &#x27;a&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;z&#x27;;
+}
+
+public static boolean isLetter(char ch) {
+    return (&#x27;a&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;z&#x27;) ||
+           (&#x27;A&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;Z&#x27;);
+}
+
+public static int digit2int(char ch) {
+    return ch - &#x27;0&#x27;;
+}</code></pre><h3 class="section-title">التحويل بين حرف صغير وحرف كبير</h3><pre class="code-block" dir="ltr"><code>char ch = &#x27;d&#x27;;
+ch = (char)(ch - &#x27;a&#x27; + &#x27;A&#x27;);
+// ch becomes &#x27;D&#x27;</code></pre><p>للاتجاه المعاكس، أي من حرف كبير إلى حرف صغير، نستخدم الفكرة نفسها:</p><pre class="code-block" dir="ltr"><code>ch = (char)(ch - &#x27;A&#x27; + &#x27;a&#x27;);</code></pre><h3 class="section-title">حلقة تمر على الحروف من <code dir="ltr">a</code> إلى <code dir="ltr">z</code></h3><pre class="code-block" dir="ltr"><code>public static void ascii_a2z() {
+    for (char ch = &#x27;a&#x27;; ch &lt;= &#x27;z&#x27;; ch++) {
+        System.out.println(ch + &quot;	&quot; + (int)ch);
+    }
+}</code></pre><h3 class="section-title"><code dir="ltr">String</code> كسلسلة من الرموز</h3><p>السلسلة النصية (<code dir="ltr">String</code>) هي تسلسل من الرموز. للوصول إلى عدد الرموز نستخدم <code dir="ltr">length()</code>، وللحصول على رمز في موقع معيّن نستخدم <code dir="ltr">charAt(index)</code>.</p><pre class="code-block" dir="ltr"><code>String s = &quot;abc&quot;;
+s.length();    // 3
+s.charAt(0);   // &#x27;a&#x27;
+s.charAt(2);   // &#x27;c&#x27;</code></pre><div class="exam-tip"><strong>قاعدة للامتحان:</strong> فهرسة <code dir="ltr">String</code> تبدأ من 0. آخر مؤشر صالح يساوي طول السلسلة ناقص 1.</div><pre class="code-block" dir="ltr"><code>str.length() - 1</code></pre><h3 class="section-title">فحص قوة كلمة مرور</h3><p>بحسب تمرين الفصل، كلمة المرور القوية يجب أن تحتوي على 8 رموز على الأقل، وحرف كبير واحد على الأقل، ورقم واحد على الأقل.</p><pre class="code-block" dir="ltr"><code>public static boolean isStrongPw(String pw) {
+    if (pw.length() &lt; 8) {
+        return false;
+    }
+    boolean hasCapital = false;
+    boolean hasDigit = false;
+
+    for (int i = 0; i &lt; pw.length(); i++) {
+        char ch = pw.charAt(i);
+        if (&#x27;A&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;Z&#x27;) {
+            hasCapital = true;
+        }
+        if (&#x27;0&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;9&#x27;) {
+            hasDigit = true;
+        }
+    }
+    return hasCapital &amp;&amp; hasDigit;
+}</code></pre><h3 class="section-title">سلسلة متناظرة (<code dir="ltr">Palindrome</code>)</h3><p>السلسلة المتناظرة تُقرأ بالشكل نفسه من اليمين إلى اليسار ومن اليسار إلى اليمين، مثل <code dir="ltr">aba</code> و 12321.</p><p>نقارن أول رمز بآخر رمز، ثم الثاني بما قبل الأخير، ونستمر حتى يلتقي المؤشران.</p><pre class="code-block" dir="ltr"><code>public static boolean isPalindrome(String str) {
+    int left = 0;
+    int right = str.length() - 1;
+
+    while (left &lt; right) {
+        if (str.charAt(left) != str.charAt(right)) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
+}</code></pre><h3 class="section-title">عكس سلسلة نصية</h3><pre class="code-block" dir="ltr"><code>public static String reverse(String str) {
+    String word = &quot;&quot;;
+    for (int i = str.length() - 1; i &gt;= 0; i--) {
+        word = word + str.charAt(i);
+    }
+    return word;
+}</code></pre><p>إذا كانت السلسلة هي <code dir="ltr">abc</code>، فإن التنفيذ يبني النتيجة على المراحل: <code dir="ltr">c</code> ثم <code dir="ltr">cb</code> ثم <code dir="ltr">cba</code>.</p><h3 class="section-title">شفرة قيصر (<code dir="ltr">Caesar</code> <code dir="ltr">Cipher</code>)</h3><p>في شفرة قيصر نستبدل كل حرف بحرف يبعد عنه عددًا ثابتًا من المواقع. إذا تجاوزنا <code dir="ltr">z</code> أو <code dir="ltr">Z</code> نعود إلى بداية الأبجدية.</p><p>في مثال الشرائح، <code dir="ltr">LUCK</code> بإزاحة 10 تصبح <code dir="ltr">VEMU</code> عند التعامل مع الأحرف الكبيرة. في العملية المعروضة للتشفير يتم تطبيق الفكرة على الأحرف الصغيرة <code dir="ltr">a</code>..<code dir="ltr">z</code>، وأي رمز آخر ينسخ كما هو.</p><pre class="code-block" dir="ltr"><code>public static String encryption(String msg, int k) {
+    String message = &quot;&quot;;
+    for (int i = 0; i &lt; msg.length(); i++) {
+        char ch = msg.charAt(i);
+        if (&#x27;a&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;z&#x27;) {
+            ch += k;
+            if (&#x27;z&#x27; &lt; ch) {
+                ch -= 26;
+            }
+        }
+        message += ch;
+    }
+    return message;
+}</code></pre><div class="note"><strong>ملاحظة:</strong> هذه الصيغة هي صيغة الفصل وتفترض إزاحة مناسبة بحيث يكفي الرجوع 26 مرة واحدة. في أسئلة هذا الفصل اتبعوا حدود السؤال والكود الذي تم تدريسه.</div><h3 class="section-title">فك شفرة قيصر</h3><pre class="code-block" dir="ltr"><code>public static String decrypt(String msg, int k) {
+    String result = &quot;&quot;;
+    for (int i = 0; i &lt; msg.length(); i++) {
+        char ch = msg.charAt(i);
+        if (&#x27;a&#x27; &lt;= ch &amp;&amp; ch &lt;= &#x27;z&#x27;) {
+            ch -= k;
+            if (ch &lt; &#x27;a&#x27;) {
+                ch += 26;
+            }
+        }
+        result += ch;
+    }
+    return result;
+}</code></pre><p>في مثال المادة، عند فك السلسلة <code dir="ltr">vemu</code> بإزاحة 10 تكون النتيجة <code dir="ltr">luck</code>.</p><h2 id="sec-5" class="chapter-title">5.4 - الحلقة المتداخلة (<code dir="ltr">Nested</code> <code dir="ltr">Loop</code>)</h2><h3 class="section-title">الفكرة الأساسية</h3><p>الحلقة المتداخلة هي حلقة داخل حلقة أخرى. الحلقة التي تحتوي غيرها تسمى الحلقة الخارجية (<code dir="ltr">Outer</code> <code dir="ltr">Loop</code>)، والحلقة الموجودة بداخلها تسمى الحلقة الداخلية (<code dir="ltr">Inner</code> <code dir="ltr">Loop</code>).</p><div class="exam-tip"><strong>قاعدة للامتحان:</strong> في كل تكرار واحد للحلقة الخارجية، تُنفّذ الحلقة الداخلية كاملة من بدايتها إلى نهايتها.</div><h3 class="section-title">مثال: جدول الضرب</h3><p>لطباعة 12 صفًا و8 أعمدة: الحلقة الخارجية تختار الصف، والحلقة الداخلية تمر على أعمدة ذلك الصف.</p><pre class="code-block" dir="ltr"><code>for (int line = 1; line &lt;= 12; line++) {
+    for (int i = 1; i &lt;= 8; i++) {
+        System.out.print(line * i + &quot;	&quot;);
+    }
+    System.out.println();
+}</code></pre><h3 class="section-title">طباعة مستطيل من النجوم</h3><pre class="code-block" dir="ltr"><code>public static void printRectangle(int m, int n) {
+    for (int i = 0; i &lt; m; i++) {
+        for (int j = 0; j &lt; n; j++) {
+            System.out.print(&quot;* &quot;);
+        }
+        System.out.println();
+    }
+}</code></pre><p>الخارجية تتكرر <code dir="ltr">m</code> مرات = عدد الصفوف، والداخلية تتكرر <code dir="ltr">n</code> مرات في كل صف = عدد الأعمدة.</p><h3 class="section-title">طباعة مثلث قائم من النجوم</h3><pre class="code-block" dir="ltr"><code>public static void printTriangular(int n) {
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= i; j++) {
+            System.out.print(&quot;* &quot;);
+        }
+        System.out.println();
+    }
+}</code></pre><p>الفرق عن المستطيل أن عدد تكرارات الحلقة الداخلية يتغير حسب رقم الصف <code dir="ltr">i</code>: الصف الأول نجمة واحدة، الثاني نجمتان، وهكذا.</p><h3 class="section-title">قراءة مخرجات حلقات متداخلة</h3><pre class="code-block" dir="ltr"><code>for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 5; j++) {
+        System.out.print(&quot;* &quot;);
+    }
+    System.out.println();
+}</code></pre><p>الناتج: 3 صفوف، وفي كل صف 5 نجوم.</p><pre class="code-block" dir="ltr"><code>for (int i = 1; i &lt;= 5; i++) {
+    for (int j = 5; j &gt;= i; j--) {
+        System.out.print(&quot;*&quot;);
+    }
+    System.out.println();
+}</code></pre><p>عدد النجوم يقل في كل صف: 5 ثم 4 ثم 3 ثم 2 ثم 1.</p><pre class="code-block" dir="ltr"><code>for (int i = 1; i &lt;= 3; i++) {
+    for (int k = 1; k &lt;= 5; k++) {
+        System.out.print(i);
+    }
+    System.out.println();
+}</code></pre><p>الناتج: 11111 ثم 22222 ثم 33333، كل مجموعة في صف جديد.</p><pre class="code-block" dir="ltr"><code>int i = 1;
+while (i &lt; 10) {
+    for (int j = 1; j &lt;= 5; j++) {
+        System.out.print(&quot;^&quot;);
+    }
+    System.out.println();
+    i = i * 2;
+}</code></pre><p>قيم <code dir="ltr">i</code> هي 1، 2، 4، 8؛ لذلك تُطبع أربعة صفوف، كل صف يحتوي 5 رموز ^. هذا مثال على دمج <code dir="ltr">while</code> خارجية مع <code dir="ltr">for</code> داخلية.</p><h3 class="section-title">تمرين جمع التبرعات</h3><p>خمس فئات / صفوف دراسية. لكل فئة ندخل مبالغ الطلاب حتى -1، ثم ننتقل للفئة التالية. في النهاية نريد مجموع كل فئة، المجموع العام، ورقم الفئة ذات أكبر مجموع.</p><pre class="code-block" dir="ltr"><code>Scanner scan = new Scanner(System.in);
+int totalAll = 0;
+int maxClass = 0;
+int maxSum = -1;
+
+for (int cls = 1; cls &lt;= 5; cls++) {
+    int classSum = 0;
+    int amount = scan.nextInt();
+
+    while (amount != -1) {
+        classSum += amount;
+        amount = scan.nextInt();
+    }
+
+    System.out.println(&quot;Class &quot; + cls + &quot;: &quot; + classSum);
+    totalAll += classSum;
+
+    if (classSum &gt; maxSum) {
+        maxSum = classSum;
+        maxClass = cls;
+    }
+}
+System.out.println(&quot;Total = &quot; + totalAll);
+System.out.println(&quot;Max class = &quot; + maxClass + &quot;, sum = &quot; + maxSum);</code></pre><div class="note"><strong>ملاحظة:</strong> الحل أعلاه حل مقترح مبني على متطلبات التمرين في الشرائح. الفكرة الأساسية التي يجب فهمها هي <code dir="ltr">for</code> خارجية للفئات و <code dir="ltr">while</code> داخلية لعدد طلاب غير معروف في كل فئة.</div><h2 id="sec-6" class="chapter-title">5.5 - تدريبات شاملة على الحلقات</h2><h3 class="section-title">تمرين 01 - أكبر رقم داخل عدد</h3><p>اكتبوا عملية تستقبل عددًا صحيحًا وتعيد أكبر رقم فيه. للعدد 17234 تعاد القيمة 7، وللعدد 128348 تعاد القيمة 8، وللعدد -3245 تعاد القيمة 5. المطلوب التدرّب على <code dir="ltr">while</code> و <code dir="ltr">for</code>.</p><pre class="code-block" dir="ltr"><code>public static int maxDigit(int num) {
+    if (num &lt; 0) {
+        num = -num;
+    }
+    int max = 0;
+    while (num != 0) {
+        int digit = num % 10;
+        if (digit &gt; max) {
+            max = digit;
+        }
+        num = num / 10;
+    }
+    return max;
+}</code></pre><h3 class="section-title">تمرين 02 أ - خمن العدد</h3><p>البرنامج يختار عددًا بين 1 و100. بعد كل تخمين يخبر المستخدم إن كان التخمين أكبر أو أصغر، وينتهي فقط عند النجاح.</p><pre class="code-block" dir="ltr"><code>Random rnd = new Random();
+int secret = rnd.nextInt(100) + 1;
+int guess = scan.nextInt();
+while (guess != secret) {
+    if (guess &gt; secret) {
+        System.out.println(&quot;Too high. Enter a number&quot;);
+    } else {
+        System.out.println(&quot;Too low. Enter a number&quot;);
+    }
+    guess = scan.nextInt();
+}
+System.out.println(&quot;Well done!&quot;);</code></pre><h3 class="section-title">تمرين 02 ب - خمن العدد مع حد أقصى للمحاولات</h3><p>أضيفوا حدًا لعدد التخمينات، مثل 4 محاولات. تتوقف اللعبة عند النجاح أو عند استهلاك المحاولات.</p><pre class="code-block" dir="ltr"><code>int tries = 0;
+boolean found = false;
+while (tries &lt; 4 &amp;&amp; !found) {
+    int guess = scan.nextInt();
+    tries++;
+    if (guess == secret) {
+        found = true;
+    } else if (guess &gt; secret) {
+        System.out.println(&quot;Too high.&quot;);
+    } else {
+        System.out.println(&quot;Too low.&quot;);
+    }
+}
+if (found) {
+    System.out.println(&quot;Well done!&quot;);
+} else {
+    System.out.println(&quot;Game Over. Number is: &quot; + secret);
+}</code></pre><h3 class="section-title">تمرين 03 - سلسلة 7 بوم</h3><p>اطبعوا حتى 100 كل عدد يقبل القسمة على 7 أو يحتوي الرقم 7.</p><pre class="code-block" dir="ltr"><code>public static boolean hasDigit7(int num) {
+    while (num != 0) {
+        if (num % 10 == 7) {
+            return true;
+        }
+        num = num / 10;
+    }
+    return false;
+}
+
+for (int i = 1; i &lt;= 100; i++) {
+    if (i % 7 == 0 || hasDigit7(i)) {
+        System.out.print(i + &quot; &quot;);
+    }
+}</code></pre><h3 class="section-title">تمرين 04 - اكتشاف أخطاء برنامج المتوسط</h3><p>الأخطاء في الكود المعطى تشمل: <code dir="ltr">sum</code> لم يُهيأ، يعاد ضبط <code dir="ltr">sum</code> داخل الحلقة، قراءة القيمة الجديدة قبل إضافة القديمة، <code dir="ltr">count</code> يبدأ من 1، قيمة -1 قد تدخل في المجموع، والقسمة قد تكون صحيحة عددية.</p><pre class="code-block" dir="ltr"><code>Scanner scan = new Scanner(System.in);
+int num = scan.nextInt();
+double sum = 0;
+int count = 0;
+while (num != -1) {
+    sum += num;
+    count++;
+    num = scan.nextInt();
+}
+if (count &gt; 0) {
+    double avg = sum / count;
+    System.out.println(&quot;Average: &quot; + avg);
+}</code></pre><h3 class="section-title">تمرين 05 أ - عد الأعداد ذات الرقمين</h3><p>المشكلة في الكود المعطى أنه يطبع <code dir="ltr">count</code> بدل أن يزيده. يجب تنفيذ <code dir="ltr">count</code>++ عند العثور على عدد بين 10 و99، ثم طباعة النتيجة بعد انتهاء الحلقة.</p><pre class="code-block" dir="ltr"><code>public static void count() {
+    Scanner scan = new Scanner(System.in);
+    int i = 0;
+    int count = 0;
+    while (i &lt; 5) {
+        int num = scan.nextInt();
+        if (num &lt;= 99 &amp;&amp; num &gt;= 10) {
+            count++;
+        }
+        i++;
+    }
+    System.out.println(&quot;Count = &quot; + count);
+}</code></pre><h3 class="section-title">تمرين 05 ب - أخطاء إضافية في الإدخال</h3><div class="bullet">في نسخة، <code dir="ltr">num</code> يُستخدم قبل تعريفه.</div><div class="bullet">في نسخة أخرى، <code dir="ltr">num</code> يُقرأ مرة واحدة فقط خارج الحلقة؛ لذلك نفس القيمة تُفحص خمس مرات.</div><div class="bullet">القراءة يجب أن تحدث في كل تكرار، سواء كان العدد ذا رقمين أم لا.</div><h3 class="section-title">تمرين 06 - مثلث متساوي الساقين من النجوم</h3><p>المطلوب طباعة مثلث مقلوب، ثم كتحدٍ تحويله إلى مثلث قاعدته في الأسفل. نحتاج حلقة للمسافات وحلقة للنجوم في كل صف.</p><pre class="code-block" dir="ltr"><code>public static void printIsoTriangle(int lines) {
+    for (int row = 0; row &lt; lines; row++) {
+        for (int s = 0; s &lt; row; s++) {
+            System.out.print(&quot; &quot;);
+        }
+        int stars = 2 * (lines - row) - 1;
+        for (int j = 0; j &lt; stars; j++) {
+            System.out.print(&quot;*&quot;);
+        }
+        System.out.println();
+    }
+}</code></pre><h3 class="section-title">تمرين 07 - ساعة رملية من النجوم</h3><p>العملية تستقبل <code dir="ltr">maxStars</code>، وهو في السؤال الأساسي موجب وفردي. النصف العلوي يقل بنجمتين في كل صف ثم النصف السفلي يزيد بنجمتين.</p><pre class="code-block" dir="ltr"><code>public static void hourglass(int maxStars) {
+    for (int stars = maxStars; stars &gt;= 1; stars -= 2) {
+        int spaces = (maxStars - stars) / 2;
+        for (int s = 0; s &lt; spaces; s++) {
+            System.out.print(&quot; &quot;);
+        }
+        for (int j = 0; j &lt; stars; j++) {
+            System.out.print(&quot;*&quot;);
+        }
+        System.out.println();
+    }
+
+    for (int stars = 3; stars &lt;= maxStars; stars += 2) {
+        int spaces = (maxStars - stars) / 2;
+        for (int s = 0; s &lt; spaces; s++) {
+            System.out.print(&quot; &quot;);
+        }
+        for (int j = 0; j &lt; stars; j++) {
+            System.out.print(&quot;*&quot;);
+        }
+        System.out.println();
+    }
+}</code></pre><div class="note"><strong>ملاحظة:</strong> الحلان الخاصان بالمثلث والساعة الرملية هما حلول مقترحة للتدريب، لأن شرائح 5.5 تعرض صيغة السؤال والمخرجات المطلوبة دون حل كامل.</div><h2 id="sec-7" class="chapter-title">مراجعة نهائية للفصل الخامس</h2><h3 class="section-title">كيف أختار نوع الحلقة؟</h3><div class="table-wrap"><table class="study-table"><tr><td>الحالة</td><td>الاختيار المعتاد</td></tr><tr><td>عدد التكرارات غير معروف ويتوقف بشرط أو قيمة إدخال</td><td><code dir="ltr">while</code></td></tr><tr><td>عدد التكرارات معروف أو نمر على مجال واضح من القيم</td><td><code dir="ltr">for</code></td></tr><tr><td>صفوف وأعمدة أو تكرار داخل تكرار</td><td><code dir="ltr">Nested</code> <code dir="ltr">Loop</code></td></tr><tr><td>الاختيار ممكن بالحالتين</td><td>اختر ما يجعل التهيئة والشرط والتحديث أوضح</td></tr></table></div><h3 class="section-title">أسئلة يجب أن تسألها قبل كتابة أي حلقة</h3><div class="bullet">ما شرط الاستمرار؟</div><div class="bullet">ما الأوامر التي يجب أن تتكرر؟</div><div class="bullet">ما المتغيّر الذي يتغير حتى تنتهي الحلقة؟</div><div class="bullet">هل التهيئة صحيحة قبل أول فحص؟</div><div class="bullet">هل التحديث يحدث في كل مسار ممكن، خصوصًا مع <code dir="ltr">continue</code>؟</div><div class="bullet">هل توجد حالة صفر تكرارات؟</div><div class="bullet">هل يوجد خطر قسمة على صفر أو فقدان جزء عشري؟</div><div class="bullet">هل المتغيّر الذي أحتاجه بعد الحلقة عُرّف خارجها؟</div><h3 class="section-title">أخطاء شائعة جدًا في الامتحان</h3><div class="bullet">نسيان <code dir="ltr">i</code>++ أو تحديث المتغيّر في <code dir="ltr">while</code>، فتنتج حلقة لا نهائية.</div><div class="bullet">استخدام &lt;= بدل &lt; أو العكس، فيحدث تكرار زائد أو ناقص.</div><div class="bullet">البدء من 1 عندما يجب البدء من 0 عند العمل مع <code dir="ltr">String</code>.</div><div class="bullet">استخدام <code dir="ltr">str</code>.<code dir="ltr">length()</code> كمؤشر أخير بدل <code dir="ltr">str</code>.<code dir="ltr">length()</code> - 1.</div><div class="bullet">تحديث <code dir="ltr">num</code> قبل استخدام <code dir="ltr">num</code> % 10 عند تفكيك رقم.</div><div class="bullet">وضع قراءة <code dir="ltr">Scanner</code> داخل <code dir="ltr">if</code> فتحدث القراءة فقط لبعض الحالات.</div><div class="bullet">تعريف متغيّر داخل الحلقة ثم محاولة استعماله خارجها.</div><div class="bullet">القسمة بين <code dir="ltr">int</code> عندما نحتاج <code dir="ltr">double</code>.</div><div class="bullet">نسيان أن <code dir="ltr">continue</code> في <code dir="ltr">for</code> ينتقل إلى <code dir="ltr">update</code>، بينما في <code dir="ltr">while</code> يعود إلى فحص الشرط مباشرة.</div><h3 class="section-title">اختبار ذاتي سريع</h3><p>1. ما الفرق بين جسم الحلقة وشرط الحلقة؟  2. متى نفضّل <code dir="ltr">while</code> ومتى <code dir="ltr">for</code>؟  3. ما الفرق بين <code dir="ltr">break</code> و <code dir="ltr">continue</code> و <code dir="ltr">return</code>؟  4. لماذا قد تصبح <code dir="ltr">while</code> حلقة لا نهائية؟  5. ما آخر مؤشر صالح في <code dir="ltr">String</code>؟  6. كيف نعرف أن <code dir="ltr">char</code> هو رقم؟  7. ماذا يحدث للحلقة الداخلية في كل تكرار من الخارجية؟  8. كيف نستخرج رقم الآحاد من عدد؟  9. لماذا المتوسط قد يحتاج <code dir="ltr">double</code>؟  10. ما معنى نطاق المتغيّر؟</p><h3 class="section-title">إجابات مختصرة للاختبار الذاتي</h3><p>1. الجسم هو الأوامر المتكررة والشرط يقرر هل نكرر. 2. <code dir="ltr">while</code> لعدد غير معروف غالبًا، وfor لعدد معروف غالبًا. 3. <code dir="ltr">break</code> يخرج من الحلقة، <code dir="ltr">continue</code> يتخطى بقية التكرار الحالي، <code dir="ltr">return</code> ينهي العملية. 4. إذا بقي الشرط <code dir="ltr">true</code> ولم يحدث تحديث أو خروج. 5. <code dir="ltr">length()</code>-1. 6. &#x27;0&#x27; &lt;= <code dir="ltr">ch</code> &amp;&amp; <code dir="ltr">ch</code> &lt;= &#x27;9&#x27;. 7. تُنفّذ كاملة. 8. <code dir="ltr">num</code> % 10. 9. حتى لا نفقد الجزء العشري. 10. المكان الذي يكون فيه المتغيّر معروفًا ومسموحًا باستخدامه.</p><div class="exam-tip"><strong>قاعدة للامتحان:</strong> عند حل سؤال تتبّع (<code dir="ltr">Dry</code> <code dir="ltr">Run</code>): اكتب جدولًا للمتغيّرات، وفحص الشرط، والقيمة المطبوعة بعد كل تكرار. لا تحاول حل كل شيء ذهنيًا مرة واحدة.</div>
+</main>
+<button id="topBtn" class="top-btn" aria-label="العودة إلى الأعلى">↑</button>
+<script src="script.js"></script>
+</body>
+</html>
